@@ -1,0 +1,932 @@
+@imports "./normalize.css";
+@import url("https://fonts.googleapis.com/css?family=Kanit|Sawarabi+Gothic");
+$BG_COLOR: #ffffff;
+$BG_NUMBER_COLOR: orangered;
+$NUMBER_COLOR: white;
+$DES_NUMBER_COLOR: black;
+$NUMBER_SIZE: 4.5rem;
+$HIVE_COLOR1: orange;
+$HIVE_RORATE: -28deg;
+.gl-a {
+	display: none;
+}
+
+.active {
+	.gl-a {
+		display: block;
+	}
+	.gl-b {
+		display: none;
+	}
+	.counter {
+		display: none;
+	}
+}
+
+* {
+	font-family: "Kanit", "Sawarabi Gothic", sans-serif;
+}
+
+body {
+	height: 100vh;
+	font-family: "Share Tech Mono", monospace;
+	background-color: $BG_COLOR;
+}
+
+header {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	font-size: 2.2rem;
+}
+
+footer {
+	bottom: 2em;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	img {
+		margin-left: 2em;
+	}
+	.contact {
+		display: inline-block;
+		img {
+			display: inline-block;
+			margin-bottom: -10px;
+		}
+		span {
+			line-height: 5em;
+		}
+	}
+}
+
+.counter {
+	.center {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		text-align: center;
+		-webkit-transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+	.clock {
+		font-size: $NUMBER_SIZE;
+		line-height: 1;
+	}
+	.digit {
+		width: 0.4em;
+		height: 1em;
+		display: inline-block;
+		position: relative;
+		margin: 0.1em;
+		text-align: center;
+	}
+	.des {
+		top: 1.5em;
+		left: -2.5em;
+		width: 0.5em;
+		height: 1em;
+		display: inline-block;
+		position: relative;
+		margin: 0.1em;
+		text-align: center;
+		color: black;
+		.showing,
+		.below,
+		.above {
+			width: 3em;
+			background: none;
+			border: none;
+			color: $DES_NUMBER_COLOR;
+		}
+	}
+	.showing,
+	.below,
+	.above {
+		width: 0.8em;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: $BG_NUMBER_COLOR;
+		border: 2px solid $BG_NUMBER_COLOR;
+		color: $NUMBER_COLOR;
+		border-radius: 12px;
+	}
+	.showing {
+		-webkit-transform: perspective(100vh) rotateX(0) translateY(0%);
+		transform: perspective(100vh) rotateX(0) translateY(0%);
+		-webkit-transform-origin: 50% 0%;
+		transform-origin: 50% 0%;
+		transition: -webkit-transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		transition: transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		transition: transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+			-webkit-transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+	.below {
+		-webkit-transform: perspective(100vh) rotateX(90deg) translateY(-140%);
+		transform: perspective(100vh) rotateX(90deg) translateY(-140%);
+		transition-delay: 0ms;
+		transition: -webkit-transform 0;
+		transition: transform 0;
+		transition: transform 0, -webkit-transform 0;
+	}
+	.above {
+		-webkit-transform: perspective(100vh) rotateX(-90deg) translateY(140%);
+		transform: perspective(100vh) rotateX(-90deg) translateY(140%);
+		-webkit-transform-origin: 50% 000%;
+		transform-origin: 50% 100%;
+		transition-delay: 0ms;
+		transition: -webkit-transform 600ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+		transition: transform 600ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+		transition: transform 600ms cubic-bezier(0.6, -0.28, 0.735, 0.045),
+			-webkit-transform 600ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	}
+	.sig {
+		position: fixed;
+		bottom: 5px;
+		right: 5px;
+		text-decoration: none;
+		font-size: 12px;
+		font-weight: 800;
+		font-family: sans-serif;
+		color: rgba(0, 0, 0, 0.4);
+	}
+}
+
+.hive {
+	top: 7em;
+	left: -15em;
+	position: absolute;
+	z-index: -99;
+	transform: rotate($HIVE_RORATE);
+	#hex1 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 50px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -3;
+		-webkit-animation-delay: -3;
+	}
+	#hex1:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex1:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex2 {
+		width: 100px;
+		height: 55px;
+		background: $HIVE_COLOR1;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 160px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		animation-delay: -2.5s;
+		-webkit-animation-delay: -2.5s;
+	}
+	#hex2:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex2:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex3 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 270px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -2s;
+		-webkit-animation-delay: -2s;
+	}
+	#hex3:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex3:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex4 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 380px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -1.5s;
+		-webkit-animation-delay: -1.5s;
+	}
+	#hex4:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex4:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex5 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 490px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -1s;
+		-webkit-animation-delay: -1s;
+	}
+	#hex5:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex5:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex6 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 600px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -0.5s;
+		-webkit-animation-delay: -0.5s;
+	}
+	#hex6:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex6:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex7 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 50px;
+		margin-left: 710px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: 0s;
+		-webkit-animation-delay: 0s;
+	}
+	#hex7:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex7:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex8 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 105px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -5s;
+		-webkit-animation-delay: -5s;
+	}
+	#hex8:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex8:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex9 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 215px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -4.5s;
+		-webkit-animation-delay: -4.5s;
+	}
+	#hex9:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex9:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex10 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 325px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -4s;
+		-webkit-animation-delay: -4s;
+	}
+	#hex10:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex10:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex11 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 435px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -3.5s;
+		-webkit-animation-delay: -3.5s;
+	}
+	#hex11:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex11:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex12 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 545px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -3s;
+		-webkit-animation-delay: -3s;
+	}
+	#hex12:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex12:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex13 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 655px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -2.5s;
+		-webkit-animation-delay: -2.5s;
+	}
+	#hex13:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex13:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex14 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 140px;
+		margin-left: 765px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -2s;
+		-webkit-animation-delay: -2s;
+	}
+	#hex14:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex14:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex15 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 50px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -4.5s;
+		-webkit-animation-delay: -4.5s;
+	}
+	#hex15:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex15:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex16 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 160px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -4s;
+		-webkit-animation-delay: -4s;
+	}
+	#hex16:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex16:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex17 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 270px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -3.5s;
+		-webkit-animation-delay: -3.5s;
+	}
+	#hex17:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex17:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex18 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 380px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -3s;
+		-webkit-animation-delay: -3s;
+	}
+	#hex18:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex18:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex19 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 490px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -2.5s;
+		-webkit-animation-delay: -2.5s;
+	}
+	#hex19:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex19:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex20 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 600px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -2s;
+		-webkit-animation-delay: -2s;
+	}
+	#hex20:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex20:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	#hex21 {
+		width: 100px;
+		height: 55px;
+		position: absolute;
+		margin-top: 230px;
+		margin-left: 710px;
+		display: inline-block;
+		animation: fade 3s linear infinite;
+		-webkit-animation: fade 3s linear infinite;
+		background: $HIVE_COLOR1;
+		animation-delay: -1.5s;
+		-webkit-animation-delay: -1.5s;
+	}
+	#hex21:before {
+		content: "";
+		position: absolute;
+		top: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 25px solid $HIVE_COLOR1;
+	}
+	#hex21:after {
+		content: "";
+		position: absolute;
+		bottom: -25px;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid $HIVE_COLOR1;
+	}
+	@keyframes fade {
+		0% {
+			opacity: 0.2;
+		}
+		30% {
+			opacity: 0.2;
+		}
+		50% {
+			opacity: 1;
+		}
+		70% {
+			opacity: 0.2;
+		}
+		100% {
+			opacity: 0.2;
+		}
+	}
+	@-webkit-keyframes fade {
+		0% {
+			opacity: 0.2;
+		}
+		30% {
+			opacity: 0.2;
+		}
+		50% {
+			opacity: 1;
+		}
+		70% {
+			opacity: 0.2;
+		}
+		100% {
+			opacity: 0.2;
+		}
+	}
+}
