@@ -5,7 +5,7 @@ import "./fireworks.scss";
 import "./bee.scss";
 
 const $clock = $("#clock");
-let eventTime = moment("03-09-2018 08:00:00", "DD-MM-YYYY HH:mm:ss").unix();
+let eventTime = moment("03-09-2018 07:00:00", "DD-MM-YYYY HH:mm:ss").unix();
 let currentTime = moment().unix();
 let diffTime = eventTime - currentTime;
 let duration = moment.duration(diffTime * 1000, "milliseconds");
