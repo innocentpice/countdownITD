@@ -1,4 +1,5 @@
 import $ from "jquery";
+import Swal from "sweetalert2";
 import moment from "moment";
 import "./style.scss";
 import "./fireworks.scss";
@@ -11,7 +12,56 @@ let diffTime = eventTime - currentTime;
 let duration = moment.duration(diffTime * 1000, "milliseconds");
 const interval = 1000;
 
-if (diffTime < 0) {
+$("#popupClick").click(() => {
+	const supportList = [
+		{
+			title: "IT NETWORK",
+			list: [
+				{ name: "รุ่งนภา สุวรรณา", tel: "3601" },
+				{ name: "ประเสริฐ ยู่จินตนาการ", tel: "3609" },
+				{ name: "วชิร รุจิระศิริกุล", tel: "3612" },
+				{ name: "อติรุจ หนูเนียม", tel: "3606" }
+			]
+		},
+		{
+			title: "IT Application",
+			list: [
+				{ name: "ปพิชญา แสงสุนีย์ [ GL, AA ]", tel: "3604" },
+				{ name: "ประทุมวัน บุญภิละ [ AP, MM, BPM ]", tel: "3614" },
+				{ name: "สัจจา ทองทิพย์ [ PS, CO ]", tel: "3613" },
+				{ name: "สหวุฒิ สุตปพาส [ PM ]", tel: "3605" },
+				{ name: "อุษณีย์ จุลภักดี [ AR, SD, BPM ]", tel: "3607" },
+				{ name: "ณฐกร ธนเศรษฐ [ BPM ]", tel: "3611" },
+				{ name: "ชัยวัฒน์ สามาอาพัฒน์ [ MM, BPM ]", tel: "3615, 3611" }
+			]
+		}
+	];
+
+	const htmlDom = () => {
+		return [
+			...supportList.map(lists => {
+				const sublist = [
+					...[...lists.list].map(list => {
+						return (
+							"<p>" +
+							list.name +
+							" ติดต่อ <span style='color:blueviolet'> " +
+							list.tel +
+							"</span></p>"
+						);
+					})
+				];
+				return "<h3><u>" + lists.title + "</u></h3>" + sublist.join("");
+			})
+		].join("");
+	};
+	Swal({
+		html: htmlDom(),
+		showCloseButton: true
+	});
+});
+
+if (diffTime > 0) {
 	setInterval(function() {
 		duration = moment.duration(
 			duration.asMilliseconds() - interval,

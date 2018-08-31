@@ -7,6 +7,7 @@ $DES_NUMBER_COLOR: black;
 $NUMBER_SIZE: 4.5rem;
 $HIVE_COLOR1: orange;
 $HIVE_RORATE: -28deg;
+$mobileWidth: 768px;
 .gl-a {
 	display: none;
 }
@@ -41,7 +42,7 @@ header {
 }
 
 footer {
-	bottom: 2em;
+	bottom: 1em;
 	position: absolute;
 	width: 100%;
 	text-align: center;
@@ -49,6 +50,11 @@ footer {
 		margin-left: 2em;
 	}
 	.contact {
+		@media (max-width: $mobileWidth) {
+			padding-top: 1em;
+			display: block;
+			clear: both;
+		}
 		display: inline-block;
 		img {
 			display: inline-block;
