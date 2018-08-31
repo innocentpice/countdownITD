@@ -11,7 +11,7 @@ let diffTime = eventTime - currentTime;
 let duration = moment.duration(diffTime * 1000, "milliseconds");
 const interval = 1000;
 
-if (diffTime > 0) {
+if (diffTime < 0) {
 	setInterval(function() {
 		duration = moment.duration(
 			duration.asMilliseconds() - interval,
